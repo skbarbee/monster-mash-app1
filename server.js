@@ -87,15 +87,27 @@ app.get("/characters", (req, res)=>{
 	.catch(err => console.log(err))
 })
 //POST request
-//create route -> gices the ability to create new fruits
-app.post("/characters", (req, res)=>{
+//create route -> gives the ability to create new character
+app.post("/characters/", (req, res)=>{
 	Student.create(req.body)
 	.then(student =>{
 		res.status(201).json({ student: student.toObject()})
 	})
 	.catch(error => console.log(error))
 })
-
+//PUT request
+//Update -> updates a specific character
+app.put("/characters/:id",(req,res)=>{
+	//console.log("I hit the update route",req.params.id)
+	const id = req.params.id
+	// findByIdAndUpdate needs three aruguments, id, req.boyd, and whether it is new
+	Student.findByIdAndUpdate(id, req.body, {new:true})
+		.then(student =>{
+			console.log('the character from update', student)
+			res.sendStatus(204)
+		})
+		.catch(err=> console.log(err))
+})
 //////////////////////////////////////////////
 // Server Listener
 //////////////////////////////////////////////
