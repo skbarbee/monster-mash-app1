@@ -86,6 +86,16 @@ app.get("/characters", (req, res)=>{
 	})
 	.catch(err => console.log(err))
 })
+//POST request
+//create route -> gices the ability to create new fruits
+app.post("/characters", (req, res)=>{
+	Student.create(req.body)
+	.then(student =>{
+		res.status(201).json({ student: student.toObject()})
+	})
+	.catch(error => console.log(error))
+})
+
 //////////////////////////////////////////////
 // Server Listener
 //////////////////////////////////////////////
