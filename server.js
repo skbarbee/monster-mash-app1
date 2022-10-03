@@ -108,6 +108,22 @@ app.put("/characters/:id",(req,res)=>{
 		})
 		.catch(err=> console.log(err))
 })
+//DELETE request
+//destroy route-> finds and deletes a single resource(fruit)
+
+app.delete("/characters/:id",(req,res)=>{
+	//grab the id from the request
+	const id = req.params.id
+	//find and delte the fruit
+	Student.findByIdAndRemove(id)
+	//send a 204 if successful
+	.then((student) =>{
+		console.log('the character you deleted', student)
+		res.sendStatus(204)
+	})
+	//send the error if not
+	.catch(err => res.json(err))
+})
 //////////////////////////////////////////////
 // Server Listener
 //////////////////////////////////////////////
