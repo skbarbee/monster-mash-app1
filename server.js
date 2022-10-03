@@ -71,12 +71,21 @@ app.get("/characters/seed", (req, res) => {
 		// Seed Starter characters
 		Student.create(theHeirs)
 		  .then((data) => {
-		  // send created fruits as response to confirm creation
+		  // send created characters as response to confirm creation
 			res.json(data)
 		  })
 	  })
 	})
-
+//GET request
+//index route
+app.get("/characters", (req, res)=>{
+	//in our index route, we want to use moongoos model methods to get our data
+	Student.find({})
+	.then(students =>{
+		res.json({ students : students})
+	})
+	.catch(err => console.log(err))
+})
 //////////////////////////////////////////////
 // Server Listener
 //////////////////////////////////////////////
