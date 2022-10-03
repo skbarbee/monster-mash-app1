@@ -88,7 +88,7 @@ app.get("/characters", (req, res)=>{
 })
 //POST request
 //create route -> gives the ability to create new character
-app.post("/characters/", (req, res)=>{
+app.post("/characters", (req, res)=>{
 	Student.create(req.body)
 	.then(student =>{
 		res.status(201).json({ student: student.toObject()})
@@ -123,6 +123,16 @@ app.delete("/characters/:id",(req,res)=>{
 	})
 	//send the error if not
 	.catch(err => res.json(err))
+})
+
+//SHOW request
+app.get("/characters/:id",(req,res)=>{
+	const id = req.params.id
+	Student.findById(id)
+	.then(id =>{
+		res.json({id:id})
+	})
+	.catch(err=>console.log(err))
 })
 //////////////////////////////////////////////
 // Server Listener
