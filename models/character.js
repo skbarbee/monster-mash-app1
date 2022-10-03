@@ -5,10 +5,10 @@ const mongoose = require("mongoose")
 // pull schema and model from mongoose
 const { Schema, model } = mongoose
 
-// make fruits schema
+// make  schema
 const studentSchema = new Schema({
   name: String,
-  nickname: String,
+  nickname: [String],
   age: Number,
   zodiacSign:{ 
 	type: String,
@@ -18,16 +18,7 @@ const studentSchema = new Schema({
 	type: String,
 	enum:['ignis','aer','terra','aqua']
   },
-  elements:{
-	type: Map,
-	of: new Schema({
-		air:Boolean,
-		fire:Boolean,
-		earth:Boolean,
-		water:Boolean,
-	})
-	
-  }
+  elements:[String]
 
 
 })
