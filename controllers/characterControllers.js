@@ -11,31 +11,6 @@ const router = express.Router()
 /////////////////////////////////////////
 // Routes
 /////////////////////////////////////////
-//SEED Route
-router.get("/seed", (req, res) => {
-	// array of starter characters
-	const theHeirs = [
-	{name:"Seth Capella", nickname:["Wolfman"], age: 20, zodiacSign:"aquarius", order:"Werewolf", house:"aer",elements:['air','earth']},
-
-	{name:"Caleb Altair", nickname:["Cal"], age: 20, zodiacSign:"taurus", order:"Vampire", house:"terra",elements:['fire','earth']},
-
-	{name:"Darius Acrux", nickname:["Dragzilla","Dragon Boy","Dari"], age: 20, zodiacSign:"leo", order:"Dragon", house:"ignis",elements:['fire','water']},
-
-	{name:"Max Rigel", nickname:["Bothersome Carracuda"], age: 20, zodiacSign:"pisces", order:"Siren", house:"aqua",elements:['water','air']},
-
-	]
-
-	  // Delete all characters
-	  Student.deleteMany({})
-	  .then((data) => {
-		// Seed Starter characters
-		Student.create(theHeirs)
-		  .then((data) => {
-		  // send created characters as response to confirm creation
-			res.json(data)
-		  })
-	  })
-	})
 //GET request
 //index route
 router.get("/", (req, res)=>{
