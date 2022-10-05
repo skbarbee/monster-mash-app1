@@ -1,7 +1,8 @@
 ////////////////////////////////////////////////
 // Our Models
 ////////////////////////////////////////////////
-const mongoose = require("mongoose")
+const mongoose = require('./connection')
+const User = require('./user')
 // pull schema and model from mongoose
 const { Schema, model } = mongoose
 
@@ -29,6 +30,10 @@ const studentSchema = new Schema({
   house: {
 	type: String,
 	enum:['ignis','aer','terra','aqua']
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   },
   elements:[elementsSchema]
 

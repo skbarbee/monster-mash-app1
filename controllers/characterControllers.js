@@ -3,6 +3,7 @@
 ////////////////////////////////////////
 const express = require("express")
 const Student = require("../models/character")
+
 /////////////////////////////////////////
 // Create Router
 /////////////////////////////////////////
@@ -16,19 +17,30 @@ const router = express.Router()
 router.get("/", (req, res)=>{
 	//in our index route, we want to use moongoos model methods to get our data
 	Student.find({})
+	.populate("owner","username")
 	.then(students =>{
-		res.json({ students : students})
+	res.json({ students : students})
 	})
 	.catch(err => console.log(err))
 })
 //POST request
 //create route -> gives the ability to create new character
 router.post("/", (req, res)=>{
+	req.body.owner = req.session.userId
 	Student.create(req.body)
 	.then(student =>{
 		res.status(201).json({ student: student.toObject()})
 	})
 	.catch(error => console.log(error))
+})
+
+//GET request for USER
+router.get('/mine', (req,res)=>{
+	Student.find({owner: req.session.userId})
+	.then(students =>{
+		res.status(200).json({students: students})
+	})
+	.catch(error => res.json(error))
 })
 //PUT request
 //Update -> updates a specific character
