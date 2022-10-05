@@ -5,6 +5,18 @@ const mongoose = require("mongoose")
 // pull schema and model from mongoose
 const { Schema, model } = mongoose
 
+// make sub document 
+const elementsSchema = new Schema({
+  fire: {
+    type: Boolean},
+  water:{ 
+    type: Boolean},
+  air:{ 
+  type: Boolean},
+  earth:{ 
+    type: Boolean}
+})
+
 // make  schema
 const studentSchema = new Schema({
   name: String,
@@ -18,7 +30,7 @@ const studentSchema = new Schema({
 	type: String,
 	enum:['ignis','aer','terra','aqua']
   },
-  elements:[String]
+  elements:[elementsSchema]
 
 
 })
