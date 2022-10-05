@@ -47,13 +47,19 @@ router.get('/mine', (req,res)=>{
 router.put("/:id",(req,res)=>{
 	//console.log("I hit the update route",req.params.id)
 	const id = req.params.id
-	// findByIdAndUpdate needs three aruguments, id, req.boyd, and whether it is new
-	Student.findByIdAndUpdate(id, req.body, {new:true})
-		.then(student =>{
-			console.log('the character from update', student)
-			res.sendStatus(204)
+
+	Student.findById(id)
+		.then(student => {
+			if(student.owner == req.session.userId){
+				res.sendStatus(204)
+				return student.updateOne(req.body)
+				
+			}else{
+				res.sendStatus(401)
+			}
+			
 		})
-		.catch(err=> console.log(err))
+		.catch(err=> res.json(err))
 })
 //DELETE request
 //destroy route-> finds and deletes a single resource(fruit)
