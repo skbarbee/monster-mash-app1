@@ -68,11 +68,15 @@ router.delete("/:id",(req,res)=>{
 	//grab the id from the request
 	const id = req.params.id
 	//find and delte the fruit
-	Student.findByIdAndRemove(id)
+	Student.findById(id)
 	//send a 204 if successful
 	.then((student) =>{
-		console.log('the character you deleted', student)
-		res.sendStatus(204)
+		if(student.owner == req.session.userId){
+			res.sendStatus(204)
+			return student.deleteOne()
+		}else{
+			res.sendStatus(401)
+		}
 	})
 	//send the error if not
 	.catch(err => res.json(err))
