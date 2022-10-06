@@ -42,7 +42,7 @@ db.on('open', () => {
 	}]},
 	
 	]
-	Student.deleteMany({})
+	Student.deleteMany({ owner:null })
 	.then((deletedStudents) => {
 		console.log('this is what .deleteMany returns', deletedStudents)
 		// Seed Starter characters
