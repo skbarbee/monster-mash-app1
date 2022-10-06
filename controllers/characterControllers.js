@@ -18,11 +18,14 @@ router.get("/", (req, res)=>{
 	//in our index route, we want to use moongoos model methods to get our data
 	Student.find({})
 	.populate("owner","username")
+	.populate("comments.author", "username")
 	.then(students =>{
 	res.json({ students : students})
 	})
 	.catch(err => console.log(err))
 })
+
+
 //POST request
 //create route -> gives the ability to create new character
 router.post("/", (req, res)=>{
@@ -81,11 +84,11 @@ router.delete("/:id",(req,res)=>{
 	//send the error if not
 	.catch(err => res.json(err))
 })
-
 //SHOW request
 router.get("/:id",(req,res)=>{
 	const id = req.params.id
 	Student.findById(id)
+	.populate("comments.author", "username")
 	.then(id =>{
 		res.json({id:id})
 	})

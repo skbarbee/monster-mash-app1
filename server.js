@@ -5,6 +5,7 @@ require("dotenv").config() // Load ENV Variables
 const express = require("express") // import express
 const path = require("path") // import path module
 const CharacterRouter = require('./controllers/characterControllers')
+const CommentRouter = require('./controllers/commentControllers')
 const UserRouter = require('./controllers/userControllers')
 const middleware = require('./utils/middleware')
 
@@ -30,6 +31,7 @@ app.get("/",(req, res)=>{
 //Register Routes
 /////////////////////////////////////////////
 app.use('/characters',CharacterRouter)
+app.use('/comments', CommentRouter)
 app.use('/users', UserRouter)
 
 //////////////////////////////////////////////

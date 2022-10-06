@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////
 const mongoose = require('./connection')
 const User = require('./user')
+const commentSchema = require('./comment')
 // pull schema and model from mongoose
 const { Schema, model } = mongoose
 
@@ -35,7 +36,8 @@ const studentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  elements:[elementsSchema]
+  elements:[elementsSchema],
+  comments: [commentSchema]
 
 
 })
