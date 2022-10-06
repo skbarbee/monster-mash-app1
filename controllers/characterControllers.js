@@ -20,7 +20,7 @@ router.get("/", (req, res)=>{
 	.populate("owner","username")
 	.populate("comments.author", "username")
 	.then(students =>{
-	res.json({ students : students})
+	res.render('characters/index',{students})
 	})
 	.catch(err => console.log(err))
 })
