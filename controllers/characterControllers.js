@@ -30,7 +30,7 @@ router.get("/", (req, res)=>{
         const userId = req.session.userId
 	res.render('characters/index',{students,  username, loggedIn, userId })
 	})
-	.catch(err => console.log(err))
+	.catch(err => res.redirect(`/error?error=${err}`))
 })
 // GET for new fruit
 // renders the form to create a fruit
@@ -50,10 +50,10 @@ router.post("/", (req, res)=>{
     console.log('the student from the form', req.body)
 	Student.create(req.body)
 	.then(student =>{
-		res.redirect('characters')
+		res.redirect('/characters')
 		
 	})
-	.catch(error => console.log(error))
+	.catch(err => res.redirect(`/error?error=${err}`))
 	
 
 })
@@ -100,7 +100,8 @@ router.put("/:id",(req,res)=>{
 				return student.updateOne(req.body)
 				
 			}else{
-				res.sendStatus(401)
+				const err = 'you%20are%20not%20authorized%20for%20this%20action'
+                res.redirect(`/error?error=${err}`)
 			}
 			
 		})
