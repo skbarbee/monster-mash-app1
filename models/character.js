@@ -7,17 +7,17 @@ const commentSchema = require('./comment')
 // pull schema and model from mongoose
 const { Schema, model } = mongoose
 
-// make sub document 
-const elementsSchema = new Schema({
-  fire: {
-    type: Boolean},
-  water:{ 
-    type: Boolean},
-  air:{ 
-  type: Boolean},
-  earth:{ 
-    type: Boolean}
-})
+// // make sub document 
+// const elementsSchema = new Schema({
+//   fire: {
+//     type: Boolean},
+//   water:{ 
+//     type: Boolean},
+//   air:{ 
+//   type: Boolean},
+//   earth:{ 
+//     type: Boolean}
+// })
 
 // make  schema
 const studentSchema = new Schema({
@@ -36,7 +36,7 @@ const studentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  elements:[elementsSchema],
+  elements: [String],
   comments: [commentSchema]
 
 
@@ -44,6 +44,7 @@ const studentSchema = new Schema({
 
 // make model
 const Student = model("Character", studentSchema)
+// const Element = model(Element, elementsSchema)
 
 ///////////////////////////////////////////////////
 // Export Model

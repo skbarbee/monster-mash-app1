@@ -9,6 +9,8 @@ const Student = require("../models/character")
 /////////////////////////////////////////
 const router = express.Router()
 
+
+
 /////////////////////////////////////////
 // Routes
 /////////////////////////////////////////
@@ -20,6 +22,9 @@ router.get("/", (req, res)=>{
 	.populate("owner","username")
 	.populate("comments.author", "username")
 	.then(students =>{
+		const element = res.body._id
+		console.log(element)
+	console.log(students.elements)
 		const username = req.session.username
         const loggedIn = req.session.loggedIn
         const userId = req.session.userId
@@ -68,27 +73,39 @@ router.get('/mine', (req,res)=>{
 })
 // GET request to show the update page
 router.get("/edit/:id", (req, res) => {
-    // const username = req.session.username
-    // const loggedIn = req.session.loggedIn
-    // const userId = req.session.userId
-    res.send('edit page')
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
+	const studentId = req.params.id
+
+    Student.findById(studentId)
+	.then(student =>{
+		res.render('characters/edit', { student, username, loggedIn, userId})
+	})
+	.catch(err => {
+		res.redirect(`error?error=${err}`)
+	})
 })
+
 //PUT request
 //Update -> updates a specific character
 router.put("/:id",(req,res)=>{
-	//console.log("I hit the update route",req.params.id)
-	const id = req.params.id
+	onsole.log("req.body initially", req.body)
+    const id = req.params.id
 
 	Student.findById(id)
 		.then(student => {
 			if(student.owner == req.session.userId){
-				res.sendStatus(204)
+				
 				return student.updateOne(req.body)
 				
 			}else{
 				res.sendStatus(401)
 			}
 			
+		})
+		.then(()=>{
+			res.redirect(`/characters/${id}`)
 		})
 		.catch(err=> res.json(err))
 })
@@ -105,8 +122,8 @@ router.delete('/:id', (req, res) => {
             // if the delete is successful, send the user back to the index page
             res.redirect('/characters')
         })
-        .catch(error => {
-            res.json({ error })
+        .catch(err => {
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -121,7 +138,7 @@ router.get("/:id",(req,res)=>{
 		const userId = req.session.userId
 		res.render('characters/show', { student, username, loggedIn, userId })
 	})
-	.catch(err=>console.log(err))
+	.catch(err => res.redirect(`/error?error=${err}`))
 })
 //////////////////////////////////////////
 // Export the Router

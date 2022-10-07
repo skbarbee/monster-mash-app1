@@ -12,37 +12,40 @@ const db = mongoose.connection
 console.log('db in seed', db)
 db.on('open', () => {
 	const theHeirs = [
-	{name:"Seth Capella", nickname:["Wolfman"], age: 20, zodiacSign:"aquarius", order:"Werewolf", house:"aer", elements:[{
-		fire: false,
-		water:false,
-		air: true,
-		earth: true
-	}]
+	{name:"Seth Capella", nickname:["Wolfman"], age: 20, zodiacSign:"aquarius", order:"Werewolf", house:"aer", elements: ["air", "earth"]
+	// 	fire: false,
+	// 	water:false,
+	// 	air: true,
+	// 	earth: true
+	// }]
 	},
 	
-	{name:"Caleb Altair", nickname:["Cal"], age: 20, zodiacSign:"taurus", order:"Vampire", house:"terra", elements:[{
-		fire: true,
-		water:false,
-		air: false,
-		earth: true
-	}]},
+	{name:"Caleb Altair", nickname:["Cal"], age: 20, zodiacSign:"taurus", order:"Vampire", house:"terra", elements:["fire","earth"]
+	// 	fire: true,
+	// 	water:false,
+	// 	air: false,
+	// 	earth: true
+	// }]
+	},
 	
-	{name:"Darius Acrux", nickname:["Dragzilla","Dragon Boy","Dari"], age: 20, zodiacSign:"leo", order:"Dragon", house:"ignis", elements:[{
-		fire: true,
-		water:true,
-		air: false,
-		earth: false
-	}]},
+	{name:"Darius Acrux", nickname:["Dragzilla","Dragon Boy","Dari"], age: 20, zodiacSign:"leo", order:"Dragon", house:"ignis", elements:["fire","water"]
+	// 	fire: true,
+	// 	water:true,
+	// 	air: false,
+	// 	earth: false
+	// }]
+	},
 	
-	{name:"Max Rigel", nickname:["Bothersome Carracuda"], age: 20, zodiacSign:"pisces", order:"Siren", house:"aqua", elements:[{
-		fire: false,
-		water:true,
-		air: true,
-		earth: false
-	}]},
+	{name:"Max Rigel", nickname:["Bothersome Carracuda"], age: 20, zodiacSign:"pisces", order:"Siren", house:"aqua", elements:["water","air"]
+	// 	fire: false,
+	// 	water:true,
+	// 	air: true,
+	// 	earth: false
+	// }]
+	},
 	
 	]
-	Student.deleteMany({ owner:null })
+	Student.deleteMany()
 	.then((deletedStudents) => {
 		console.log('this is what .deleteMany returns', deletedStudents)
 		// Seed Starter characters
