@@ -58,9 +58,20 @@ router.post("/", (req, res)=>{
 router.get('/mine', (req,res)=>{
 	Student.find({owner: req.session.userId})
 	.then(students =>{
-		res.status(200).json({students: students})
+		const username = req.session.username
+		const loggedIn = req.session.loggedIn
+		const userId = req.session.userId
+		
+		res.render('characters/index', { students, username, loggedIn, userId })
 	})
 	.catch(error => res.json(error))
+})
+// GET request to show the update page
+router.get("/edit/:id", (req, res) => {
+    // const username = req.session.username
+    // const loggedIn = req.session.loggedIn
+    // const userId = req.session.userId
+    res.send('edit page')
 })
 //PUT request
 //Update -> updates a specific character
@@ -84,30 +95,31 @@ router.put("/:id",(req,res)=>{
 //DELETE request
 //destroy route-> finds and deletes a single resource(fruit)
 
-router.delete("/:id",(req,res)=>{
-	//grab the id from the request
-	const id = req.params.id
-	//find and delte the fruit
-	Student.findById(id)
-	//send a 204 if successful
-	.then((student) =>{
-		if(student.owner == req.session.userId){
-			res.sendStatus(204)
-			return student.deleteOne()
-		}else{
-			res.sendStatus(401)
-		}
-	})
-	//send the error if not
-	.catch(err => res.json(err))
+router.delete('/:id', (req, res) => {
+    // get the student id
+    const studentId = req.params.id
+
+    // delete and REDIRECT
+    Student.findByIdAndRemove(studentId)
+        .then(students => {
+            // if the delete is successful, send the user back to the index page
+            res.redirect('/characters')
+        })
+        .catch(error => {
+            res.json({ error })
+        })
 })
+
 //SHOW request
 router.get("/:id",(req,res)=>{
 	const id = req.params.id
 	Student.findById(id)
 	.populate("comments.author", "username")
-	.then(id =>{
-		res.json({id:id})
+	.then(student =>{
+		const username = req.session.username
+		const loggedIn = req.session.loggedIn
+		const userId = req.session.userId
+		res.render('characters/show', { student, username, loggedIn, userId })
 	})
 	.catch(err=>console.log(err))
 })
