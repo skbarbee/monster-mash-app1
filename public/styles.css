@@ -5,3 +5,13 @@ body{
 	margin: 5px;
 	width: 18rem;
 }
+.form-label{
+	color:white;
+}
+legend{
+	color: white;
+}
+.form-check-input{
+	color:white
+
+}

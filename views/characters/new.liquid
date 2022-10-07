@@ -1,0 +1,62 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-sm">
+    <form action="/characters" method="POST">
+	 <fieldset>
+        <legend>Make A New Student</legend>
+		<label class="form-label">Name: </label>
+             <input 
+                type="text" 
+                name="name"
+                placeholder="enter student name"
+                class="form-control"
+            >
+		<label class="form-label">Nickname: </label>
+             <input 
+                type="text" 
+                name="nickname"
+                placeholder="seperate nicknames with comma"
+                class="form-control"
+            >
+			<label class="form-label">Zodiac Sign: </label>
+             <input 
+                type="text" 
+                name="zodiacSign"
+                placeholder="enter Zodiac Sign"
+                class="form-control"
+            >
+			<label class="form-label">Order: </label>
+             <input 
+                type="text" 
+                name="order"
+                placeholder="order"
+                class="form-control"
+            >
+			<label class="form-label">House: </label>
+             <input 
+                type="text" 
+                name="house"
+                placeholder="enter house name"
+                class="form-control"
+            >
+			{%- comment -%} <label class="form-label">Elements:</label>
+                <div class="input-group">
+ 
+  <label class="form-label">Fire</label><<input type="checkbox" aria-label="Fire Element"  name= "elements.fire" class="form-check-input">
+  >>
+  <label class="form-label">Water</label><<input type="checkbox" aria-label="Water Element"  name= "elements.water" class="form-check-input">
+  >>
+  <label class="form-label">Air</label><<input type="checkbox" aria-label="air Element"  name= "elements.air" class="form-check-input">
+  >>
+  <label class="form-label">Earth</label><<input type="checkbox" aria-label="Earth Element"  name= "elements.earth" class="form-check-input">
+  >> {%- endcomment -%}
+</div>
+ 		</fieldset>
+            <input 
+                type="submit" 
+                value="Create New Student"
+                class="btn btn-success"
+            >
+        </form>
+    </div>
+{% endblock %}

@@ -20,22 +20,39 @@ router.get("/", (req, res)=>{
 	.populate("owner","username")
 	.populate("comments.author", "username")
 	.then(students =>{
-	res.render('characters/index',{students})
+		const username = req.session.username
+        const loggedIn = req.session.loggedIn
+        const userId = req.session.userId
+	res.render('characters/index',{students,  username, loggedIn, userId })
 	})
 	.catch(err => console.log(err))
 })
+// GET for new fruit
+// renders the form to create a fruit
+router.get('/new', (req, res) => {
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
 
+    res.render('characters/new', { username, loggedIn, userId })
+})
 
 //POST request
 //create route -> gives the ability to create new character
 router.post("/", (req, res)=>{
+	
 	req.body.owner = req.session.userId
+    console.log('the student from the form', req.body)
 	Student.create(req.body)
 	.then(student =>{
-		res.status(201).json({ student: student.toObject()})
+		res.redirect('characters')
+		
 	})
 	.catch(error => console.log(error))
+	
+
 })
+
 
 //GET request for USER
 router.get('/mine', (req,res)=>{
