@@ -37,12 +37,12 @@ router.post('/signup', async (req, res) => {
         // if successful, console log the user(for now)
         .then(user => {
             console.log(user)
-            res.status(201).json({ username: user.username})
+            res.redirect('/users/login')
         })
         // if an error occurs, log the error
         .catch(err => {
             console.log(err)
-            res.json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -78,21 +78,31 @@ router.post('/login', async (req, res) => {
 
                     // we'll send a 201 status and the user as json for now
                     // we'll change this later for security purposes
-                    res.status(201).json({ user: user.toObject() })
+                    //res.status(201).json({ user: user.toObject() })
+                    res.redirect('/characters')
                 } else {
-                    res.json({ error: 'username or password incorrect' })
+                    res.redirect(`/error?error=username%20or%20password%20incorrect`)
                 }
             } else {
                 // send an error message
-                res.json({ error: 'user does not exist' })
+                res.redirect(`/error?error=user%20does%20not%20exist`)
             }
         })
         .catch(err => {
             console.log(err)
-            res.json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
+// GET
+// SENDS to the logout page
+router.get('/logout', (req, res) => {
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
+
+    res.render('users/logout', { username, loggedIn, userId})
+})
 // GET
 // SENDS to the logout page
 router.get('/logout', (req, res) => {
@@ -111,7 +121,8 @@ router.delete('/logout', (req, res) => {
         console.log('req.session after logout', req.session)
         console.log('err on logout?', err)
 
-        res.sendStatus(204)
+        //res.sendStatus(204)
+        res.redirect('/')
     })
 })
 

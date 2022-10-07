@@ -1,20 +1,9 @@
 body{
 	background-color: black;
-}
-.card{
-	margin: 5px;
-	width: 18rem;
-}
-.form-label{
-	color:white;
-}
-legend{
 	color: white;
 }
-.form-check-input{
-	color:white;
-
-}
-article{
-	color:white;
+.card{
+	color: black;
+	margin: 5px;
+	width: 18rem;
 }
