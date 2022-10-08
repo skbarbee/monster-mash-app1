@@ -1,7 +1,7 @@
 {% layout 'layout.liquid' %}
 {% block content %}
     <div class="container-md">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 30rem;">
         <div class="card-body">
                 <h5 class="card-title">{{student.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{student.nickname}} </h6>
@@ -11,7 +11,8 @@
                         </h5>
                         <p class="card-text">{{student.name}} is a {{student.zodiacSign}}. They belong to the {{student.order}} order.</p>
 					</div>
-					{% if student.owner == userId %}
+                    {% if loggedIn %}
+					{% if student.owner == userId %}  
                 <div class="btn-group">
                     {%- comment -%} first button will send us to the edit page {%- endcomment -%}
                     <a class="btn btn-outline-info" href="/characters/edit/{{student.id}}">Edit</a>
@@ -20,9 +21,39 @@
                         <input class="btn btn-outline-danger" type="submit" value="Delete">
                     </form>
 				</div>
-            
                 </div>
             {% endif %}
-        </article>
+            {% endif %}
+      </article>
+        <hr>
+        <hr>
+        {% if loggedIn %}
+            <div class="col-md-6">
+                <form action="/comments/{{student.id}}" method="POST">
+                    <fieldset>
+                        <legend>Add Comment</legend>
+                        <label class="form-label">comment:</label>
+                        <input class="form-control" type="text" placeholder="enter your comment..." name="note" required>
+                    </fieldset>
+                    <input class="btn btn-success" type="submit" value="add comment">
+                </form>
+            </div>
+        {% else %}
+            <div class="col-md-6">
+                <small>If you'd like to leave a comment, please log in...</small>
+            </div>
+        {% endif %}
+        <hr>
+        {% if student.comments.length > 0%}
+            <div class="container-sm justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    {% for comment in student.comments %}
+                        {% render '../comment.liquid', comment: comment, userId: userId, student: Student %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <small>no comments yet...</small>
+        {% endif %}
     </div>
 {% endblock %}
