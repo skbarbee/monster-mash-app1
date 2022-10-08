@@ -22,13 +22,11 @@ router.get("/", (req, res)=>{
 	.populate("owner","username")
 	.populate("comments.author", "username")
 	.then(students =>{
-		const element = res.body._id
-		console.log(element)
 	console.log(students.elements)
 		const username = req.session.username
         const loggedIn = req.session.loggedIn
         const userId = req.session.userId
-	res.render('characters/index',{students,  username, loggedIn, userId })
+	res.render('characters/index', {students,  username, loggedIn, userId })
 	})
 	.catch(err => res.redirect(`/error?error=${err}`))
 })
@@ -90,7 +88,7 @@ router.get("/edit/:id", (req, res) => {
 //PUT request
 //Update -> updates a specific character
 router.put("/:id",(req,res)=>{
-	onsole.log("req.body initially", req.body)
+	console.log("req.body initially", req.body)
     const id = req.params.id
 
 	Student.findById(id)
@@ -100,8 +98,7 @@ router.put("/:id",(req,res)=>{
 				return student.updateOne(req.body)
 				
 			}else{
-				const err = 'you%20are%20not%20authorized%20for%20this%20action'
-                res.redirect(`/error?error=${err}`)
+				res.sendStatus(401)
 			}
 			
 		})

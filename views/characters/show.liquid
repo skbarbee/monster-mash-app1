@@ -1,11 +1,13 @@
 {% layout 'layout.liquid' %}
 {% block content %}
     <div class="container-md">
-        <div class="card">
-                    <h5 class="card-header">{{student.name}}</h5>
-                    <div class="card-body">
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+                <h5 class="card-title">{{student.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{student.nickname}} </h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{student.house}} house</h6>  
                         <h5 class="card-title">
-                        {{student.house}} HOUSE
+                        
                         </h5>
                         <p class="card-text">{{student.name}} is a {{student.zodiacSign}}. They belong to the {{student.order}} order.</p>
 					</div>

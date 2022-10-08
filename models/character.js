@@ -22,7 +22,7 @@ const { Schema, model } = mongoose
 // make  schema
 const studentSchema = new Schema({
   name: String,
-  nickname: [String],
+  nickname: String,
   age: Number,
   zodiacSign:{ 
 	type: String,
@@ -36,7 +36,7 @@ const studentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  elements: [String],
+  elements: String,
   comments: [commentSchema]
 
 

@@ -1,0 +1,75 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-sm">
+    <form action="/characters/{{student.id}}?_method=PUT" method="POST">
+	 <fieldset>
+        <legend>Edit {{student.name}}</legend>
+		<label class="form-label">Name: </label>
+             <input 
+                type="text" 
+                name="name"
+                placeholder="enter student name"
+                class="form-control"
+				value="{{student.name}}"
+            >
+		<label class="form-label">Nickname: </label>
+             <input 
+                type="text" 
+                name="nickname"
+                placeholder="seperate nicknames with comma"
+                class="form-control"
+				value="{{student.nicknames}}"
+            >
+			<label class="form-label">Zodiac Sign: </label>
+             <input 
+                type="text" 
+                name="zodiacSign"
+                placeholder="enter Zodiac Sign"
+                class="form-control"
+				value="{{student.zodiacSign}}"
+            >
+			<label class="form-label">Order: </label>
+             <input 
+                type="text" 
+                name="order"
+                placeholder="order"
+                class="form-control"
+				value="{{student.order}}"
+            >
+			<label class="form-label">House: </label>
+             <input 
+                type="text" 
+                name="house"
+                placeholder="enter house name"
+                class="form-control"
+				value="{{student.house}}"
+            >
+               <label class="form-label">Elements: </label>
+             <input 
+                type="text" 
+                name="elements"
+                placeholder="seperate elements with comma"
+                class="form-control"
+                value="{{student.elements}}"
+                >
+			{%- comment -%} <label class="form-label">Elements:</label>
+                <div class="input-group">
+ 
+  <label class="form-label">Fire</label><<input type="checkbox" aria-label="Fire Element"  name= "elements.fire" class="form-check-input">
+  >>
+  <label class="form-label">Water</label><<input type="checkbox" aria-label="Water Element"  name= "elements.water" class="form-check-input">
+  >>
+  <label class="form-label">Air</label><<input type="checkbox" aria-label="air Element"  name= "elements.air" class="form-check-input">
+  >>
+  <label class="form-label">Earth</label><<input type="checkbox" aria-label="Earth Element"  name= "elements.earth" class="form-check-input">
+  >> {%- endcomment -%}
+
+ 		</fieldset>
+            <input 
+                type="submit" 
+                value="Edit {{student.name}}"
+                class="btn btn-success"
+            >
+        </form>
+    </div>
+{% endblock %}
