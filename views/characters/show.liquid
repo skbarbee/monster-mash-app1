@@ -32,10 +32,9 @@
                 <form action="/comments/{{student.id}}" method="POST">
                     <fieldset>
                         <legend>Add Comment</legend>
-                        <label class="form-label">comment:</label>
-                        <input class="form-control" type="text" placeholder="enter your comment..." name="note" required>
+                        <input class="form-control mb-2" type="text" placeholder="enter your comment..." name="note" required>
                     </fieldset>
-                    <input class="btn btn-success" type="submit" value="add comment">
+                    <input class="btn btn-outline-info" type="submit" value="add comment">
                 </form>
             </div>
         {% else %}
